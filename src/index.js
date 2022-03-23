@@ -24,5 +24,12 @@ app.get('/books/:book_id', (req,res) => {
     return res.status(200).json(book);
 })
 
+app.delete('/books/:book_id', (req,res) => {
+    const {book_id} = req.params;
+    const filteredBooks = books.filter((book) => book.id !== book_id)
+    books = filteredBooks;
+    return res.status(204).json("deleted");
+})
+
 //servidor rodando
 app.listen(3333, () => console.log("servidor esta rodando na porta 3333!"))
