@@ -14,5 +14,9 @@ app.post('/books', (req, res) => {
     return res.status(201).json(book);
 })
 
+app.get('/books', (req, res) => {
+    return res.status(200).json(books)
+})
+
 //servidor rodando
 app.listen(3333, () => console.log("servidor esta rodando na porta 3333!"))
