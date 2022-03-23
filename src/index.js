@@ -10,6 +10,12 @@ app.use(express.json()) // passa a entender JSON
 app.post('/books', (req, res) => {
     const {id, title, author, publishAt} = req.body
     const book = { id, title, author, publishAt }
+    if(!book)
+        return res.status(406).json("null book");
+
+    if(books.find((book) => book.id === id))
+        return res.status(406).json("book already exists");
+
     books.push(book)
     return res.status(201).json(book);
 })
@@ -21,6 +27,9 @@ app.get('/books', (req, res) => {
 app.get('/books/:book_id', (req,res) => {
     const {book_id} = req.params
     const book = books.find((book) => book.id === book_id)
+    if(!book)
+        return res.status(404).json("book not found");
+
     return res.status(200).json(book);
 })
 
@@ -35,6 +44,10 @@ app.patch('/books/:book_id', (req,res) => {
     const {author, title, publishAt }= req.body
     const { book_id } = req.params
     const book = books.find(book => book.id === book_id)
+
+    if(!book)
+        return res.status(404).json("book not found");
+
     book.id = book.id
     book.title = title ? title : book.title
     book.author = author ? author : book.author
