@@ -31,5 +31,16 @@ app.delete('/books/:book_id', (req,res) => {
     return res.status(204).json("deleted");
 })
 
+app.patch('/books/:book_id', (req,res) => {
+    const {author, title, publishAt }= req.body
+    const { book_id } = req.params
+    const book = books.find(book => book.id === book_id)
+    book.id = book.id
+    book.title = title ? title : book.title
+    book.author = author ? author : book.author
+    book.publishAt = publishAt ? publishAt : book.publishAt
+    return res.status(200).json(book);
+})
+
 //servidor rodando
 app.listen(3333, () => console.log("servidor esta rodando na porta 3333!"))
